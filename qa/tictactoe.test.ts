@@ -40,3 +40,19 @@ test('O places a token after X', async () => {
     let topMiddle = await (await driver).findElement(By.xpath('//*[@id="cell-1"]')).getText();
     expect(topMiddle).toEqual('O');
 });
+
+test('Check to see if app will prevent multiple tokens in the same space', async () => {
+    let topMiddle = await (await driver).findElement(By.xpath('//*[@id="cell-1"]'));
+    await topMiddle.click();
+    await driver.sleep(1000);
+    let check = await (await driver).findElement(By.xpath('//*[@id="cell-1"]')).getText();
+    expect(check).toEqual('O')
+})
+
+test('check if you can win a game', async () => {
+    let bottomRight = await (await driver).findElement(By.xpath('//*[@id="cell-8"]'));
+    await bottomRight.click();
+    let headderCheck = await (await driver).findElement(By.xpath('//*[@id="topBar"]/h1')).getText();
+    expect(headderCheck).toEqual("X wins!");
+    await driver.sleep(1000);
+})
